@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "start": "babel-node src",
     "test": "babel-node node_modules/.bin/_mocha \"**/*.spec.js\"",
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --reporter nyan test \"**/*.spec.js\""
   },
