@@ -16,10 +16,19 @@
 
 2) start nomad on service
 
-  download nomad and extract
+  download nomad 5.0-rc1 or equivalent and extract it:
+  https://releases.hashicorp.com/nomad/
+
+  extract nomad
+
   cp nomad /usr/local/bin
 
-  sudo nomad agent -config nomad.conf
+  sudo nomad agent -dev -config nomad.conf
+
+  Couple things here...
+  https://github.com/hashicorp/nomad/issues/1091
+  1) need to set the data_dir to /tmp
+  2) need to set the logging type to "json_file" so that the syslog doesn't fail... however this won't work 4.1, so we need to use 5.0
 
 
 3) create nomad definition for a simple service

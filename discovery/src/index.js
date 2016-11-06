@@ -4,6 +4,7 @@ import dns from 'dns';
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
+import child from 'child_process';
 
 let app = express();
 
@@ -12,7 +13,7 @@ app.get('/', (req, res, next) => index(req, res).catch(next));
 
 async function index(req, res) {
   let service = req.query.service || 'consul';
-  let definition = await readDefinition(service);
+  let definition = await createDefinition(service);
   let nomadRes = await createJob(service, definition);
   res.json(nomadRes);
 };
@@ -41,9 +42,18 @@ function createJob(name, definition) {
   });
 }
 
+function createDefinition(name) {
+  return new Promise((resolve, reject) => {
+    child.exec(`nomad run -output jobs/${name}.nomad`, (err, stdout) => {
+      if(err) reject(err);
+      else    resolve(stdout);
+    });
+  });
+}
+
 function readDefinition(name) {
   return new Promise((resolve, reject) => {
-    let jobPath = path.resolve(`jobs/${name}.json`);
+    let jobPath = path.resolve(`jobs/${name}.nomad`);
     fs.readFile(jobPath, (err, data) => {
       if(err) reject(err);
       else    resolve(data.toString());
