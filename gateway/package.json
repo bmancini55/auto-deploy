@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "babel-node src",
+    "watch": "nodemon --exec babel-node -- src",
     "test": "babel-node node_modules/.bin/_mocha \"**/*.spec.js\"",
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --reporter nyan test \"**/*.spec.js\""
   },
@@ -22,7 +23,8 @@
     "babel-preset-node6": "^11.0.0",
     "chai": "^3.5.0",
     "eslint": "^3.9.1",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "nodemon": "^1.11.0"
   },
   "babel": {
     "presets": [

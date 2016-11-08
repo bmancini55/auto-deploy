@@ -15,6 +15,7 @@ async function index(req, res) {
   await createJob(service, definition);
   await waitForJob(service);
   let svr = await resolveService(service);
+  console.log('sending %j', svr);
   res.json(svr);
 };
 
