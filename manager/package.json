@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "manager",
   "version": "0.1.0",
-  "description": "",
+  "description": "Manages container deployments",
   "main": "src/index.js",
   "scripts": {
     "start": "babel-node src",
