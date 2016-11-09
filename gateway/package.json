@@ -20,6 +20,7 @@
     "babel-eslint": "^6.1.2",
     "babel-istanbul": "^0.11.0",
     "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-preset-node6": "^11.0.0",
     "chai": "^3.5.0",
     "eslint": "^3.9.1",
@@ -31,7 +32,8 @@
       "node6"
     ],
     "plugins": [
-      "transform-async-to-generator"
+      "transform-async-to-generator",
+      "transform-object-rest-spread"
     ]
   }
 }
