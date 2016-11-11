@@ -21,7 +21,14 @@ job "service1" {
       }
       service {
         name = "service1"
-        port = "http"
+        port = "http",
+        check {
+          type     = "http"
+          port     = "http"
+          path     = "/"
+          interval = "10s"
+          timeout  = "2s"
+        }
       }
     }
   }
