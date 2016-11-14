@@ -7,7 +7,6 @@ let app = express();
 
 app.get('/', (req, res, next) => index(req, res).catch(next));
 
-
 async function index(req, res) {
   let service = req.query.service || 'consul';
 
@@ -18,5 +17,5 @@ async function index(req, res) {
   res.send(result);
 };
 
-app.listen(8080);
+app.listen(8080, () => console.log('listening on 8080'));
 

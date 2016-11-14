@@ -11,7 +11,7 @@ docker run \
 -p 8500:8500 \
 -p 53:8600 \
 -p 53:8600/udp \
-consul agent -ui -dev -client=0.0.0.0
+consul agent -ui -dev -client=0.0.0.0 -advertise=10.0.0.8
 ```
 
   Configure resolv.confg to add primary 127.0.0.1 nameserver

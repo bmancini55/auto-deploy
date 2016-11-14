@@ -1,13 +1,13 @@
 
-import dns from 'dns';
 import http from 'http';
 import child from 'child_process';
+
+const NOMAD_HOST = '127.0.0.1';
 
 export default {
   createDefinition,
   createJob,
   waitForJob,
-  resolveService,
 };
 
 
@@ -17,10 +17,9 @@ function waitForJob(name) {
 
     function attempt() {
       attempts += 1;
-      console.log(name, 'attempt ' + attempts);
 
       if(attempts >= 90) {
-        reject(new Error('Timeout reached'));
+        reject(new Error('Job start timeout reached'));
         return;
       }
 
@@ -33,10 +32,7 @@ function waitForJob(name) {
             setTimeout(attempt, 1000);
           }
         })
-        .catch((err) => {
-          console.log(err);
-          setTimeout(attempt, 1000);
-        });
+        .catch(() => setTimeout(attempt, 1000));
     }
 
     attempt();
@@ -47,7 +43,7 @@ function getJob(name) {
   return new Promise((resolve, reject) => {
     let requestPath = `/v1/job/${name}/summary`;
     let req = http.request({
-      host: '127.0.0.1',
+      host: NOMAD_HOST,
       port: 4646,
       path: requestPath,
       method: 'GET'
@@ -69,7 +65,7 @@ function createJob(name, definition) {
   return new Promise((resolve, reject) => {
     let requestPath = `/v1/job/${name}`;
     let req = http.request({
-      host: '127.0.0.1',
+      host: NOMAD_HOST,
       port: 4646,
       path: requestPath,
       method: 'POST',
@@ -96,12 +92,3 @@ function createDefinition(name) {
   });
 }
 
-function resolveService(name) {
-  return new Promise((resolve, reject) => {
-    let serviceName = `${name}.service.consul`;
-    dns.resolveSrv(serviceName, (err, addresses) => {
-      if(err) reject(err);
-      else    resolve(addresses[0]);
-    });
-  });
-}
