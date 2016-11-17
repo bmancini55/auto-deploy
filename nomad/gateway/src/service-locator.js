@@ -2,6 +2,8 @@
 import dns from 'dns';
 import http from 'http';
 
+const MANAGER_IP = process.env.MANAGER_IP;
+
 export default {
   locate: locateService
 };
@@ -21,7 +23,7 @@ export function deployService(name) {
   return new Promise((resolve, reject) => {
     let requestPath = `/?service=${name}`;
     let req = http.request({
-      host: 'localhost',
+      host: MANAGER_IP,
       port: 8888,
       path: requestPath,
       method: 'GET',

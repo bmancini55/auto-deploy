@@ -1,0 +1,25 @@
+version: '2'
+services:
+  gateway:
+    image: bmancini55/gateway-nomad
+    ports:
+    - "8080:8080"
+    environment:
+    - MANAGER_IP=$HOST_IP
+  manager:
+    image: bmancini55/manager-nomad
+    ports:
+    - "8888:8888"
+  consul:
+    image: consul:0.7.1
+    ports:
+    - "8300:8300"
+    - "8301:8301"
+    - "8301:8301/udp"
+    - "8302:8302"
+    - "8302:8302/udp"
+    - "8400:8400"
+    - "8500:8500"
+    - "53:8600"
+    - "53:8600/udp"
+    command: agent -ui -dev -client=0.0.0.0 -advertise=$HOST_IP
