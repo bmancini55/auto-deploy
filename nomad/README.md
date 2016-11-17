@@ -1,37 +1,27 @@
-1) start consul docker
+1) execute docker-compose script
 
-```
-docker run \
--p 8300:8300 \
--p 8301:8301 \
--p 8301:8301/udp \
--p 8302:8302 \
--p 8302:8302/udp \
--p 8400:8400 \
--p 8500:8500 \
--p 53:8600 \
--p 53:8600/udp \
-consul agent -ui -dev -client=0.0.0.0 -advertise=10.0.0.8
-```
+  ```
+  HOST_IP=<ip of machine> docker-compose up
+  ```
 
-  Configure resolv.confg to add primary 127.0.0.1 nameserver
+2) start the manager service
+  
+  
+  We'll run it outside of docker-compose because it needs access to nomad.  A custom container could be used that includes the nomad binary.
 
-2) start nomad on service
+  ```
+  cd manager
+  npm run start
+  ```
 
-  download nomad 5.0-rc1 or equivalent (https://releases.hashicorp.com/nomad/)
+3) start nomad 5.x
+  
+  ```
+  sudo nomad agent -dev -config nomad.conf
+  ```
 
-  extract nomad
+4) connect to gateway with dependent service
 
-```
-cp nomad /usr/local/bin
-```
-
-  start nomad:
-```
-sudo nomad agent -dev -config nomad.conf
-```
-
-  Couple things here...
-  https://github.com/hashicorp/nomad/issues/1091
-  1) need to set the data_dir to /tmp
-  2) need to set the logging type to "json_file" so that the syslog doesn't fail... however this won't work 4.1, so we need to use 5.0
+  ```
+  http://localhost:8080/service=service1
+  ```
