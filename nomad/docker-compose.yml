@@ -6,10 +6,10 @@ services:
     - "8080:8080"
     environment:
     - MANAGER_IP=$HOST_IP
-  manager:
-    image: bmancini55/manager-nomad
-    ports:
-    - "8888:8888"
+  # manager:
+  #   image: bmancini55/manager-nomad
+  #   ports:
+  #   - "8888:8888"
   consul:
     image: consul:0.7.1
     ports:
