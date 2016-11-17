@@ -1,0 +1,41 @@
+{
+  "name": "",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "babel-node src",
+    "watch": "nodemon --exec babel-node -- src",
+    "test": "babel-node node_modules/.bin/_mocha \"**/*.spec.js\"",
+    "coverage": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --reporter nyan test \"**/*.spec.js\""
+  },
+  "author": "Brian <bmancini@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "docker-remote-api": "^4.4.1",
+    "express": "^4.14.0",
+    "is-docker": "^1.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^6.1.2",
+    "babel-istanbul": "^0.11.0",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-preset-node6": "^11.0.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.9.1",
+    "mocha": "^2.5.3",
+    "nodemon": "^1.11.0"
+  },
+  "babel": {
+    "presets": [
+      "node6"
+    ],
+    "plugins": [
+      "transform-async-to-generator",
+      "transform-object-rest-spread"
+    ]
+  }
+}

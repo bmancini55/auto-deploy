@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  service1:
+    build: service1
+    image: bmancini55/service1-swarm
+    networks:
+    - my-network
+    ports:
+    - "8080"
+  gateway:
+    build: gateway
+    image: bmancini55/gateway-swarm
+    networks:
+    - my-network
+    ports:
+    - "8080"
+  manager:
+    build: manager
+    image: bmancini55/manager-swarm
+    networks:
+    - my-network
+    ports:
+    - "411:8080"
+
+networks:
+  my-network:
+    driver: overlay

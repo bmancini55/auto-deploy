@@ -1,0 +1,29 @@
+{
+  "Services": {
+    "gateway": {
+      "Image": "bmancini55/gateway-swarm@sha256:00034819726447f435584c436fb4a914daeced08301925e022af4a8948f56545", 
+      "Networks": [
+        "my-network"
+      ], 
+      "Ports": [
+        {
+          "Port": 8080, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "service1": {
+      "Image": "bmancini55/service1-swarm@sha256:f0f292016ecc5f2475d4fd9b34685e0ad31df4392eafd5b7daaaa7d6bf13647c", 
+      "Networks": [
+        "my-network"
+      ], 
+      "Ports": [
+        {
+          "Port": 8080, 
+          "Protocol": "tcp"
+        }
+      ]
+    }
+  }, 
+  "Version": "0.1"
+}
