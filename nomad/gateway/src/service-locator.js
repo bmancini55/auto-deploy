@@ -2,7 +2,7 @@
 import dns from 'dns';
 import http from 'http';
 
-const MANAGER_IP = process.env.MANAGER_IP;
+const MANAGER_IP = process.env.MANAGER_IP || '127.0.0.1';
 
 export default {
   locate: locateService
@@ -24,7 +24,7 @@ export function deployService(name) {
     let requestPath = `/?service=${name}`;
     let req = http.request({
       host: MANAGER_IP,
-      port: 8888,
+      port: 4111,
       path: requestPath,
       method: 'GET',
     }, (res) => {

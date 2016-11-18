@@ -17,6 +17,5 @@ async function index(req, res) {
   res.send(result);
 };
 
-console.log('connecting to %s', process.env.MANAGER_IP);
 app.listen(8080, () => console.log('listening on 8080'));
 
