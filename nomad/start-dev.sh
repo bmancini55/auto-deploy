@@ -30,7 +30,7 @@ sed "s/\$host/$host/; s/\$adapter/$adapter/" ./nomad-dev.conf > nomad-dev.conf.t
 
 # start nomad
 echo "Starting nomad"
-sudo nomad agent -config nomad-dev.conf.temp
+sudo nomad agent -dev -config nomad-dev.conf.temp
 
 # remove consul
 echo "Stopping consul"

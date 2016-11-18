@@ -5,6 +5,14 @@ export default {
   get,
 };
 
+/**
+ * Makes a get request to the specified service via
+ * the supplied host name, port, and path
+ * @param  {[type]} options.name [description]
+ * @param  {[type]} options.port [description]
+ * @param  {[type]} options.path [description]
+ * @return {[type]}              [description]
+ */
 function get({ name, port, path }) {
   return new Promise((resolve, reject) => {
     let req = http.request({

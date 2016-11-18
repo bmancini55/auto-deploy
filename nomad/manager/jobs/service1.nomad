@@ -14,7 +14,7 @@ job "service1" {
         }
       }
       config {
-        image = "bmancini55/service1"
+        image = "bmancini55/service1-nomad"
         port_map {
           http = 8080
         }
