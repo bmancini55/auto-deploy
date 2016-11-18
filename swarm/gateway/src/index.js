@@ -1,6 +1,7 @@
 
 import express from 'express';
 import client from './service-client';
+import discovery from './service-discovery';
 
 let app = express();
 
@@ -27,18 +28,12 @@ async function index(req, res) {
  */
 async function hello(req, res) {
 
-  // dns lookup for service1
-  //
-  // if dns lookup fails
-  //    request service start to manager
-  //    manager will create the service
-  //    manager will wait for service to become live
-  //    manager will reply back
-  //
-  // make request to service to service1
+  // find the port
+  let server = await discovery.resolve('service1');
+  console.log('found server %j', server);
 
-  // we can hardcode this because of the overlay
-  let result = await client.get({ name: 'service1', port: 8080, path: '/' });
+  // connect to the service
+  let result = await client.get({ ...server, path: '/' });
 
   // send response from service
   res.send(result);

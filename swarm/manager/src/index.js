@@ -37,5 +37,5 @@ async function query(req, res, next) {
   // perform docker service query
   let result = await docker.getService(service);
 
-  res.send(result);
+  res.json(result);
 }

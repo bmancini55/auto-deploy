@@ -16,19 +16,19 @@ docker swarm init
 
 Create the network overlay to allow communication between containers
 ```
-docker network create --driver overlay my-network
+docker network create --driver overlay swarm_my-network
 ```
 
 
-Start the gateway as a service
+Start the manager as a service
 ```
-docker service create --name gateway --network my-network --publish 8080 gateway-swarm
+docker service create --name swarm_manager --network swarm_my-network --mount type=bind,source=/var/run/docker.sock,destination=/tmp/docker.sock --publish 4111:8080 bmancini55/manager-swarm
 ```
 
 
 Start service as a service
 ```
-docker service create --name service1 --network my-network --publish 8080 service1-swarm
+docker service create --name swarm_service1 --network swarm_my-network --publish 8080 bmancini55/service1-swarm
 ```
 
 -------------
@@ -39,12 +39,18 @@ This requires the Beta version of Docker 1.12 and Docker Compose 1.9.  This is r
 
 
 
+-------------
+
+By default, it will automatically assign ports:
+
+docker service update --publish-add=4111:8080 swarm_manager
+docker service update --mount-add="type=bind,source=/var/run/docker.sock,destination=/tmp/docker.sock" swarm_manager
 
 -------------
 
 
-Unknowns:
+Limitations with Deploy/:
 
-- how to connect "dev" service to swarm... the service internally uses DNS and fixed ports. This won't work in a dev environment that sits outside of the swarm
-
-- how to define "service definition" to be launched by manager???  do we have access to docker inside a container?  I assume there is, we may want to look at registrator, since it actually has a hook into the docker pipeline for that
+0. experimental mode, it's not fully baked yet...
+1. fixed published ports, currently only support publishing to the 30000 range, have to manually perform a service update
+2. mounts arent yet supported, have to manually perform a service mount

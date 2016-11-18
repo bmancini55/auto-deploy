@@ -8,20 +8,22 @@ services:
     - my-network
     ports:
     - "8080"
-  gateway:
-    build: gateway
-    image: bmancini55/gateway-swarm
-    networks:
-    - my-network
-    ports:
-    - "8080"
   manager:
     build: manager
     image: bmancini55/manager-swarm
+    volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
     networks:
     - my-network
     ports:
-    - "411:8080"
+    - "4111:8080"
+  elasticsearch:
+    image: elasticsearch:5
+    networks:
+    - my-network
+    ports:
+    - "9200:9200"
+    - "9300:9300"
 
 networks:
   my-network:

@@ -1,7 +1,23 @@
 {
   "Services": {
-    "gateway": {
-      "Image": "bmancini55/gateway-swarm@sha256:00034819726447f435584c436fb4a914daeced08301925e022af4a8948f56545", 
+    "elasticsearch": {
+      "Image": "elasticsearch@sha256:c7eaa97e9b898b65f8f8588ade1c9c6187420b8ce6efb7d3300d9213cd5cb0dc", 
+      "Networks": [
+        "my-network"
+      ], 
+      "Ports": [
+        {
+          "Port": 9200, 
+          "Protocol": "tcp"
+        }, 
+        {
+          "Port": 9300, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "manager": {
+      "Image": "bmancini55/manager-swarm@sha256:ec987f78ef30a1927b355da30fbc530a4526ceef1db959d1b66de178ae93b5e5", 
       "Networks": [
         "my-network"
       ], 
