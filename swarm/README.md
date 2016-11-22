@@ -41,10 +41,16 @@ This requires the Beta version of Docker 1.12 and Docker Compose 1.9.  This is r
 
 -------------
 
-By default, it will automatically assign ports:
+By default, it will automatically assign ports.  If there are specific ports that you need to be published, you can use `docker service update`:
 
+```
 docker service update --publish-add=4111:8080 swarm_manager
+```
+
+Similarly, since volumes are not yet supported in DAB files, you can use `docker service update` to add mounts to the service:
+```
 docker service update --mount-add="type=bind,source=/var/run/docker.sock,destination=/tmp/docker.sock" swarm_manager
+```
 
 -------------
 
