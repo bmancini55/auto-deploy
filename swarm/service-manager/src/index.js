@@ -2,12 +2,13 @@
 import express from 'express';
 import docker from './docker-client';
 
+const PORT = 4111;
 let app = express();
 
 app.get('/', (req, res, next) => index(req, res).catch(next));
 app.get('/query', (req, res, next) => query(req, res, next).catch(next));
 
-app.listen(8080, () => console.log('listening on 8080'));
+app.listen(PORT, () => console.log('listening on PORT'));
 
 /**
  * [index description]
