@@ -18,6 +18,8 @@ services:
 
   mongo3:
     image: 'mongo:3'
+    ports:
+      - '27017:27017'
     deploy:
       placement:
         constraints: [node.labels.mongo3==true]
@@ -46,24 +48,41 @@ services:
       placement:
         constraints: [node.labels.elasticsearch5==true]
 
+  visualizer:
+    image: manomarks/visualizer
+    ports:
+      - '5000:8080'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    deploy:
+      placement:
+        constraints: [node.role==manager]
+
   ###
   ### SERVICE MANAGER
   ###
 
-  service-manager:
-    build: service-manager
-    image: bmancini55/swarm-service-manager
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-    ports:
-      - '4111:4111'
-    deploy:
-      mode: 'global'
-      placement:
-        constraints: [node.labels.services==true]
+  # service-manager:
+  #   build: service-manager
+  #   image: bmancini55/swarm-service-manager
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock
+  #   ports:
+  #     - '4111:4111'
+  #   deploy:
+  #     mode: 'global'
+  #     placement:
+  #       constraints: [node.labels.services==true]
 
 
   ###
-  ### SERVICE
+  ### SERVICES
   ###
+
+  # document-service:
+  #   build: document-service
+
+
+  # indexing-service:
+  #   build: indexing
 
