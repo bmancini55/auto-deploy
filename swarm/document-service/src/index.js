@@ -1,6 +1,6 @@
 
 import express from 'express';
-import mongo from './mongo'
+import mongo from './mongo';
 
 let app = express();
 
@@ -32,7 +32,7 @@ async function getDocument(req, res, next) {
   let collection = db.collection('documents');
 
   let { id } = req.params;
-  let doc = await collection.findOne({ _id: id })
+  let doc = await collection.findOne({ _id: id });
 
   if(!doc) {
     return next();

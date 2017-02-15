@@ -1,18 +1,6 @@
-import docker from 'docker-remote-api';
-import isDocker from 'is-docker';
+import docker from '../common/docker-api';
 
-let API_VERSION = 'v1.26';
-let STACK_NAME = process.env.STACK_NAME || 'test';
-
-// detects if running inside a docker container and mounts to volume
-// provided at run time, otherwise it will use the default docker
-// unix socker with the assumption that the process is running on a machine
-// that can connect to the docker socket
-let host = isDocker() ? '/tmp/docker.sock' : '/var/run/docker.sock';
-
-// create a remote api client
-let request = docker({ host,  });
-
+// export functions
 export default {
   getService,
   updateReplicas,
@@ -24,8 +12,8 @@ export default {
  * @return {[type]}      [description]
  */
 async function getService(name) {
-  console.log(`fetching service ${STACK_NAME}_${name}`);
-  return await get(`/services/${STACK_NAME}_${name}`);
+  console.log(`fetching service ${name}`);
+  return await docker.get(`/services/${name}`);
 }
 
 
@@ -39,40 +27,21 @@ async function getService(name) {
  * @return {[type]}         [description]
  */
 async function updateReplicas(name, replicas) {
-  console.log(`updating service ${STACK_NAME}_${name} to ${replicas} replicas`);
+  console.log(`updating service ${name} to ${replicas} replicas`);
   let service = await getService(name);
 
   let spec = service.Spec;
   spec.Mode.Replicated.Replicas = replicas;
 
   let version = service.Version.Index;
-  let url = `/services/${STACK_NAME}_${name}/update?version=${version}`;
-  return await post(url, spec);
+  let url = `/services/${name}/update?version=${version}`;
+  return await docker.post(url, spec);
 }
 
 
 
 ////////////////////////////////////////
 ///
-
-
-function get(url) {
-  return new Promise((resolve, reject) => {
-    request.get(url, { json: true, version: API_VERSION  }, (err, result) => {
-      if(err) reject(err);
-      else    resolve(result);
-    });
-  });
-}
-
-function post(url, data) {
-  return new Promise((resolve, reject) => {
-    request.post(url, { json: data, version: API_VERSION }, (err, result) => {
-      if(err) reject(err);
-      else    resolve(result);
-    });
-  });
-}
 
 
 // SAMPLE SERVICE
