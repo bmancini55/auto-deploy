@@ -2,16 +2,16 @@
 ///
 
 import express from 'express';
-import dockerService from './domain/docker-service';
+import dockerService from '../domain/docker-service';
 
 // create app
 const app = express();
 
 // mount endpoints
-app.get('/api/service/:name', (req, res, next) => queryService(req, res, next).catch(next));
-app.put('/api/service/:name/replicas/:replicas', (req, res, next) => updateServiceReplicas(req, res, next).catch(next));
-app.get('/api/service/:name/state', (req, res, next) => serviceState(req, res, next).catch(next));
-app.put('/api/service/:name/start', (req, res, next) => startService(req, res, next).catch(next));
+app.get('/api/services/:name', (req, res, next) => queryService(req, res, next).catch(next));
+app.put('/api/services/:name/replicas/:replicas', (req, res, next) => updateServiceReplicas(req, res, next).catch(next));
+app.get('/api/services/:name/state', (req, res, next) => serviceState(req, res, next).catch(next));
+app.put('/api/services/:name/start', (req, res, next) => startService(req, res, next).catch(next));
 
 // export app
 export default app;

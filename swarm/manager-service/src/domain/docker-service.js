@@ -1,13 +1,29 @@
 
+import infoMapper from '../data/docker-info-mapper';
 import serviceMapper from '../data/docker-service-mapper';
 import taskMapper from '../data/docker-task-mapper';
 
 export default {
+  connectionOk,
   getService,
   updateReplicas,
   getServiceState,
   startService,
 };
+
+/**
+ * [getInfo description]
+ * @return {[type]} [description]
+ */
+async function connectionOk() {
+  try {
+    await infoMapper.getInfo();
+    return true;
+  }
+  catch(ex) {
+    return false;
+  }
+}
 
 
 /**

@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "version": "0.1.0",
+  "name": "manager-service",
+  "version": "1.0.0",
   "description": "",
   "scripts": {
     "start": "babel-node src/server.js",
