@@ -16,15 +16,18 @@ export default app;
 /////////////////////////////
 
 async function diagnostics(req, res) {
-  let service = pjson.name;
-  let version = pjson.version;
+  let service      = pjson.name;
+  let version      = pjson.version;
   let majorVersion = pjson.version.substr(0, pjson.version.indexOf('.'));
+  let dockerOk     = await dockerService.connectionOk();
+  let ok           = dockerOk;
   res.send({
     name: `${service}_v${majorVersion}`,
     service,
     version,
-    ok: {
-      'docker-api': await dockerService.connectionOk(),
+    ok,
+    checks: {
+      'docker-api': dockerOk,
     }
   });
 

@@ -1,19 +1,19 @@
 {
-  "name": "",
-  "version": "0.1.0",
+  "name": "document-service",
+  "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
   "scripts": {
-    "start": "babel-node src",
-    "watch": "nodemon --exec babel-node -- src",
+    "start": "babel-node src/server.js",
+    "watch": "nodemon --exec babel-node -- src/server.js",
     "test": "babel-node node_modules/.bin/_mocha \"**/*.spec.js\"",
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --reporter nyan test \"**/*.spec.js\""
   },
   "author": "Brian <bmancini@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.16.1",
     "express": "^4.14.0",
+    "is-docker": "^1.1.0",
     "mongodb": "^2.2.22"
   },
   "devDependencies": {
