@@ -1,9 +1,9 @@
 
 import { MongoClient } from 'mongodb';
-import isDocker from 'is-docker';
+import serviceHelper from './service-helper';
 
-let host = isDocker() ? 'mongodb' : 'localhost';
-let url = `mongodb://${host}:27017/application`;
+let host = serviceHelper.host('mongo_v3');
+let url  = `mongodb://${host}:27017/application`;
 let instance;
 
 export default {

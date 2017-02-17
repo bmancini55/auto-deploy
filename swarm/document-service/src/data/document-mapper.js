@@ -1,4 +1,4 @@
-import mongo from '../common/mongo';
+import mongo from '../common/mongo-helper';
 
 export default {
   findById,

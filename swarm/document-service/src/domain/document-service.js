@@ -1,5 +1,6 @@
 
 import documentMapper from '../data/document-mapper';
+import indexingClient from '../data/indexing-client';
 
 export default {
   findById,
@@ -25,9 +26,13 @@ async function findById(id) {
  * @param  {[type]} options.pagesize [description]
  * @return {[type]}                  [description]
  */
-async function find({ page, pagesize }) {
-  // TODO -> call indexing service
-  // fetch records by id
+async function find({ title, page = 1, pagesize = 100}) {
+  let results = await indexingClient.searchDocuments({ title, page, pagesize });
+  let docs    = await documentMapper.findByIds(results.ids);
+  docs.start  = (page - 1) * pagesize;
+  docs.limit  = pagesize;
+  docs.total  = results.total;
+  return docs;
 }
 
 
@@ -37,7 +42,9 @@ async function find({ page, pagesize }) {
  * @return {[type]}     [description]
  */
 async function createDoc(doc) {
-  return await documentMapper.insertOne(doc);
+  doc = await documentMapper.insertOne(doc);
+  await indexingClient.indexDocument(doc);
+  return doc;
 }
 
 
@@ -48,7 +55,9 @@ async function createDoc(doc) {
  * @return {[type]}            [description]
  */
 async function updateDoc(id, properties) {
-  return await documentMapper.updateOne(id, properties);
+  let doc = await documentMapper.updateOne(id, properties);
+  await indexingClient.indexDocument(doc);
+  return doc;
 }
 
 

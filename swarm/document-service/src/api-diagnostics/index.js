@@ -1,7 +1,7 @@
 
 import express from 'express';
 import pjson from '../../package.json';
-import mongo from '../common/mongo';
+import mongo from '../common/mongo-helper';
 
 // create the app
 const app = express();
