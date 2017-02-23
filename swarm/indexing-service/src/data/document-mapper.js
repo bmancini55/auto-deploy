@@ -1,5 +1,5 @@
 
-import es from '../common/elasticsearch.js';
+import es from '../common/elasticsearch-helper.js';
 
 export default {
   indexDocument,

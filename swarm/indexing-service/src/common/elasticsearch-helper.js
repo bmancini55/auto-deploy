@@ -2,7 +2,7 @@
 import elasticsearch from 'elasticsearch';
 import isDocker from 'is-docker';
 
-let host = isDocker() ? 'mongodb' : 'localhost';
+let host = isDocker() ? 'elasticsearch_v5' : 'localhost';
 let url = `${host}:9200`;
 let instance;
 

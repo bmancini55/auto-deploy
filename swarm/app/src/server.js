@@ -1,7 +1,5 @@
 
 import express from 'express';
-import client from './service-client';
-import discovery from './service-discovery';
 
 let app = express();
 

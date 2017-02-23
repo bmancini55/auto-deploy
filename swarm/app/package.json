@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "babel-node src",
-    "watch": "nodemon --exec babel-node -- src",
+    "start": "babel-node src/server",
+    "watch": "nodemon --exec babel-node -- src/server",
     "test": "babel-node node_modules/.bin/_mocha \"**/*.spec.js\"",
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --reporter nyan test \"**/*.spec.js\""
   },
