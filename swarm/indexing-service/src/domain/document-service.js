@@ -22,11 +22,23 @@ async function indexDocument(doc) {
  * @return {[type]}         [description]
  */
 async function searchDocuments(options) {
-  let results = await documentMapper.searchDocuments(options);
-  let hits    = results.hits;
-  let ids = hits.hits.map(p => p._id);
-  return {
-    total: hits.total,
-    ids,
-  };
+  let results;
+  try {
+    results = await documentMapper.searchDocuments(options);
+    let hits = results.hits;
+    let ids = hits.hits.map(p => p._id);
+    return {
+      total: hits.total,
+      ids,
+    };
+  }
+  catch (ex) {
+    if(ex.message.startsWith('[index_not_found_exception]')) {
+      await documentMapper.createIndex();
+      return await searchDocuments(options);
+    }
+    else {
+      throw ex;
+    }
+  }
 }

@@ -94,7 +94,7 @@ services:
         constraints: [node.labels.services==true]
 
   indexing-service_v1:
-    image: test/swarm-indexing-service:v1.0.0
+    image: test/swarm-indexing-service:v1.0.1
     ports:
       - '8001:8001'
     deploy:

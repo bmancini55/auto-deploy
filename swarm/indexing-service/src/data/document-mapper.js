@@ -2,9 +2,20 @@
 import es from '../common/elasticsearch-helper.js';
 
 export default {
+  createIndex,
   indexDocument,
   searchDocuments,
 };
+
+/**
+ * [createIndex description]
+ * @return {[type]} [description]
+ */
+async function createIndex() {
+  await es.db().indices.create({
+    index: 'documents'
+  });
+}
 
 
 /**
