@@ -1,0 +1,15 @@
+extends _layout
+
+block content
+  .container(style='margin-top: 70px;')
+    h1= 'Document ' + doc._id
+
+    dl.dl-horizontal
+      dt Title
+      dd= doc.title
+
+      dt Created
+      dd= doc.created
+
+      dt Updated
+      dd= doc.updated

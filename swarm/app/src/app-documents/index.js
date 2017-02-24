@@ -39,10 +39,10 @@ async function getDocuments(req, res) {
   } = req.query;
 
   console.log('getting documents');
-  let documents = await documentService.getDocuments({ title, page, pagesize });
+  let docs = await documentService.getDocuments({ title, page, pagesize });
 
-  console.log('sending %d documents', documents.length);
-  res.render('documents', { documents });
+  console.log('sending %d documents', docs.length);
+  res.render('documents', { docs });
 }
 
 /**
@@ -51,7 +51,7 @@ async function getDocuments(req, res) {
  * @param  {[type]} res [description]
  * @return {[type]}     [description]
  */
-async function newDocument(req, res) {
+async function newDocument(req, res, next) {
 
 }
 
@@ -73,7 +73,14 @@ async function createDocument(req, res) {
  * @return {[type]}        [description]
  */
 async function getDocument(req, res, next) {
+  let {id} = req.params;
 
+  console.log('fetching document %s', id);
+  let doc = await documentService.getDocument(id);
+
+  if(!doc) return next();
+
+  res.render('document', { doc });
 }
 
 /**

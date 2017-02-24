@@ -3,11 +3,18 @@ extends _layout
 block content
   .container(style='margin-top: 70px;')
     h1 Documents
+
+    .row
+      form.form-inline(method='GET' action='/documents')
+        .form-group
+          input.form-control(type='text' name='title')
+        input.btn.btn-primary(type='submit' value='Search')
+
     .row
       .col-sm-4 Title
       .col-sm-3 Created
       .col-sm-3 Updated
-    for doc in documents
+    for doc in docs
       .row
         .col-sm-4
           a(href='/documents/' + doc._id)= doc.title

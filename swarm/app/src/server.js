@@ -9,4 +9,4 @@ const app = express();
 app.use(appDocuments);
 
 // start app on 8080
-app.listen(8080, () => console.log('listening on 8080'));
+app.listen(5050, () => console.log('listening on 5050'));
