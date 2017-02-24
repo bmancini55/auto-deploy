@@ -96,7 +96,14 @@ async function getDocument(req, res, next) {
  * @return {[type]}        [description]
  */
 async function editDocument(req, res, next) {
+  let {id} = req.params;
 
+  console.log('fetching document %s', id);
+  let doc = await documentService.getDocument(id);
+
+  if(!doc) return next();
+
+  res.render('edit', { doc });
 }
 
 /**
@@ -107,7 +114,15 @@ async function editDocument(req, res, next) {
  * @return {[type]}        [description]
  */
 async function updateDocument(req, res, next) {
+  let {id} = req.params;
+  let doc = req.body;
 
+  console.log('Updating document');
+  doc = await documentService.updateDocument(id, doc);
+
+  if(!doc) return next();
+
+  res.redirect('/documents/' + doc._id);
 }
 
 /**

@@ -1,0 +1,12 @@
+extend _layout
+
+block content
+  .container(style='margin-top: 70px;')
+    h1= 'Edit ' + doc._id
+
+    .col-sm-6
+      form(method='POST' action='/documents/' + doc._id + '/update')
+        .form-group
+          label Title
+          input.form-control(type='text' name='title' placeholder='Title' value=doc.title)
+        button.btn.btn-primary(type='submit') Update
