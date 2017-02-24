@@ -22,6 +22,7 @@ export default app;
  */
 async function indexDocument(req, res) {
   let doc = req.body;
+  console.log(doc);
   await documentService.indexDocument(doc);
   res.send(doc);
 }

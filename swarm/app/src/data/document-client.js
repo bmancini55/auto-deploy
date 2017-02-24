@@ -4,6 +4,7 @@ import serviceHelper from '../common/service-helper';
 export default {
   getDocuments,
   getDocument,
+  createDocument,
 };
 
 const service = 'documents-service';
@@ -29,4 +30,14 @@ async function getDocuments({ title, page, pagesize }) {
 async function getDocument(id) {
   return await serviceHelper
     .get({ service, port, path: '/api/documents/' + id });
+}
+
+/**
+ * [createDocument description]
+ * @param  {[type]} doc [description]
+ * @return {[type]}     [description]
+ */
+async function createDocument(doc) {
+  return await serviceHelper
+    .post({ service, port, path: '/api/documents', json: doc });
 }

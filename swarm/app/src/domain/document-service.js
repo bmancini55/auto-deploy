@@ -4,6 +4,7 @@ import documentsClient from '../data/document-client';
 export default {
   getDocuments,
   getDocument,
+  createDocument,
 };
 
 /**
@@ -22,4 +23,13 @@ async function getDocuments(query) {
  */
 async function getDocument(id) {
   return await documentsClient.getDocument(id);
+}
+
+/**
+ * [createDocument description]
+ * @param  {[type]} doc [description]
+ * @return {[type]}     [description]
+ */
+async function createDocument(doc) {
+  return await documentsClient.createDocument(doc);
 }

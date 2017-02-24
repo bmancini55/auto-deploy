@@ -1,0 +1,15 @@
+extend _layout
+
+block content
+  .container(style='margin-top: 70px;')
+    h1 New Documents
+
+    .col-sm-6
+      form(method='POST' action='/documents')
+        .form-group
+          label Id
+          input.form-control(type='text' name='_id' placeholder='Doc ID')
+        .form-group
+          label Title
+          input.form-control(type='text' name='title' placeholder='Title')
+        button.btn.btn-primary(type='submit') Create

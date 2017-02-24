@@ -6,10 +6,10 @@ import documentService from '../domain/document-service';
 // create app
 const app = express();
 app.set('view engine', 'pug');
-app.set('views', __dirname);
+app.set('views', __dirname + '/views');
 
 // configure app
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // add mounts
 app.get('/documents', (req, res, next) => getDocuments(req, res).catch(next));
@@ -51,8 +51,8 @@ async function getDocuments(req, res) {
  * @param  {[type]} res [description]
  * @return {[type]}     [description]
  */
-async function newDocument(req, res, next) {
-
+async function newDocument(req, res) {
+  res.render('new');
 }
 
 /**
@@ -62,7 +62,12 @@ async function newDocument(req, res, next) {
  * @return {[type]}     [description]
  */
 async function createDocument(req, res) {
+  let doc = req.body;
 
+  console.log('creating document');
+  doc = await documentService.createDocument(doc);
+
+  res.redirect('/documents/' + doc._id);
 }
 
 /**

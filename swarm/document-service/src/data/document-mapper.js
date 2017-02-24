@@ -37,10 +37,10 @@ async function findByIds(ids) {
  * @param  {[type]} options.title [description]
  * @return {[type]}               [description]
  */
-async function insertOne({ id, title }) {
+async function insertOne({ _id, title }) {
   let collection = mongo.db().collection('documents');
   let result = await collection.insertOne({
-    _id: id,
+    _id: _id,
     title,
     created: new Date(),
     updated: new Date(),
