@@ -1,0 +1,23 @@
+extends _layout
+
+block content
+  .container(style='margin-top: 70px;')
+    h1 Documents
+    .row
+      .col-sm-4 Title
+      .col-sm-3 Created
+      .col-sm-3 Updated
+    for doc in documents
+      .row
+        .col-sm-4
+          a(href='/documents/' + doc._id)= doc.title
+        .col-sm-3= doc.created
+        .col-sm-3= doc.updated
+        .col-sm-2
+          form(style='display: inline-block;' method='GET' action='/documents/'+doc._id + '/edit')
+            button.btn(type='submit') Edit
+          span &nbsp;
+          form(style='display: inline-block;' method='POST' action='/documents/' + doc._id + '/delete')
+            button.btn(type='submit') Delete
+
+

@@ -1,7 +1,7 @@
 
 import express from 'express';
 import pjson from '../../package.json';
-import es from '../common/elasticsearch';
+import es from '../common/elasticsearch-helper';
 
 // create the app
 const app = express();
