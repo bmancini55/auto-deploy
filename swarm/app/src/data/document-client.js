@@ -9,7 +9,7 @@ export default {
   deleteDocument,
 };
 
-const service = 'documents-service';
+const service = 'document-service_v1';
 const port = 8000;
 
 /**

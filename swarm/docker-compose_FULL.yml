@@ -6,7 +6,7 @@ services:
   ### INFRASTRUCTURE
   ###
 
-  elasticsearchv_v5:
+  elasticsearch_v5:
     image: 'elasticsearch:5'
     command: [ elasticsearch, -E, network.host=0.0.0.0, -E, discovery.zen.ping.unicast.hosts=elasticsearch5, -E, discovery.zen.minimum_master_nodes=1, -E, cluster.name=swarm ]
     environment:
@@ -51,7 +51,7 @@ services:
   visualizer:
     image: manomarks/visualizer
     ports:
-      - '5000:8080'
+      - '8080:8080'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
     deploy:
@@ -62,29 +62,41 @@ services:
   ### MANAGER SERVICE
   ###
 
-  # manager-service:
-  #   build: manager-service
-  #   image: bmancini55/autodeploy-manager-service
-  #   volumes:
-  #     - /var/run/docker.sock:/tmp/docker.sock
-  #   ports:
-  #     - '4111:4111'
-  #   deploy:
-  #     mode: 'global'
-  #     placement:
-  #       constraints: [node.labels.services==true]
+  manager-service_v1:
+    image: test/swarm-manager-service:v1.0.0
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    ports:
+      - '4111:4111'
+    deploy:
+      placement:
+        constraints: [node.role==manager]
 
 
   ###
   ### SERVICES
   ###
 
-  # document-service:
-  #   build: document-service
-  #   image: bmancini55/autodeploy-document-service
+  app_v1:
+    image: test/swarm-app:v1.0.1
+    ports:
+     - '5050:5050'
+    deploy:
+      placement:
+        constraints: [node.labels.services==true]
 
+  document-service_v1:
+    image: test/swarm-document-service:v1.0.1
+    ports:
+      - '8000:8000'
+    deploy:
+      placement:
+        constraints: [node.labels.services==true]
 
-  # indexing-service:
-  #   build: indexing-service
-  #   image: bmancini55/autodeploy-indexing-service
-
+  indexing-service_v1:
+    image: test/swarm-indexing-service:v1.0.0
+    ports:
+      - '8001:8001'
+    deploy:
+      placement:
+        constraints: [node.labels.services==true]
