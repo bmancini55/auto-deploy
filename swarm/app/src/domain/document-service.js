@@ -6,6 +6,7 @@ export default {
   getDocument,
   createDocument,
   updateDocument,
+  deleteDocument,
 };
 
 /**
@@ -43,4 +44,13 @@ async function createDocument(doc) {
  */
 async function updateDocument(id, doc) {
   return await documentsClient.updateDocument(id, doc);
+}
+
+/**
+ * [deleteDocument description]
+ * @param  {[type]} id [description]
+ * @return {[type]}    [description]
+ */
+async function deleteDocument(id) {
+  return await documentsClient.deleteDocument(id);
 }

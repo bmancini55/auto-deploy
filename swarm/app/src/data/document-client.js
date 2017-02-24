@@ -6,6 +6,7 @@ export default {
   getDocument,
   createDocument,
   updateDocument,
+  deleteDocument,
 };
 
 const service = 'documents-service';
@@ -52,4 +53,14 @@ async function createDocument(doc) {
 async function updateDocument(id, doc) {
   return await serviceHelper
     .put({ service, port, path: '/api/documents/' + id, json: doc });
+}
+
+/**
+ * [deleteDocument description]
+ * @param  {[type]} id [description]
+ * @return {[type]}    [description]
+ */
+async function deleteDocument(id) {
+  return await serviceHelper
+    .del({ service, port, path: '/api/documents/' + id });
 }

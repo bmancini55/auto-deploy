@@ -132,6 +132,11 @@ async function updateDocument(req, res, next) {
  * @param  {Function} next [description]
  * @return {[type]}        [description]
  */
-async function deleteDocument(req, res, next) {
+async function deleteDocument(req, res) {
+  let {id} = req.params;
 
+  console.log('Deleting document %s', id);
+  await documentService.deleteDocument(id);
+
+  res.redirect('/documents');
 }
